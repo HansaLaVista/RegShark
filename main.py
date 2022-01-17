@@ -1,4 +1,7 @@
 import pygame
+from Reggae Shark import ReggaeShark
+from pydub import AudioSegment
+
 from helpers.Constants import Constants
 from helpers.keyboardHandler import KeyboardHandler
 
@@ -17,6 +20,7 @@ class Game:
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
         self.game = reggae_shark()
+        self.game_view = GameView(self.game, self.screen, self.font)
 
     def game_loop(self):
         current_time = pygame.time.get_ticks()
@@ -26,9 +30,12 @@ class Game:
         self.update_game(delta_time)
         self.draw_components()
 
-    def update_game(self, dt):
+    #def update_game(self, dt):
 
     def draw_components(self):
+        self.screen.fill([0,0,0])
+        self.game_view.draw_game()
+        pygame.display.flip()
 
     def handle_events(self):
             for event in pygame.event.get():
@@ -60,7 +67,7 @@ class Game:
 
     def handle_mouse_pressed(self, event):
            # self.game_view.on_mouse_clicked(pygame.mouse.get_pos())
-
+            pass
 
     def handle_mouse_released(self, event):
             pass

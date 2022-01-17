@@ -1,6 +1,7 @@
 {
     "_meta": {
         "hash": {
+            "sha256": "84533622e7c50a5f8a327f5c934f38f978811a7baea6e67bbad5521dcfb4792e"
             "sha256": "50a35590dfbcfa4ae7e3fc87ade1efc1280d6cca8f8fd7074e3c384bb864888e"
         },
         "pipfile-spec": 6,
@@ -16,6 +17,14 @@
         ]
     },
     "default": {
+        "pyduinobridge": {
+            "hashes": [
+                "sha256:643e0d6eec8c922ffc0b54b98d342dd2c674bbec08ae6958d5665613c7935712",
+                "sha256:b425f2b7a475ea3e277e954c50d2730fda9054214875bc45e2d1d65ef63b7401"
+            ],
+            "index": "pypi",
+            "version": "==1.0.7"
+        },
         "pydub": {
             "hashes": [
                 "sha256:65617e33033874b59d87db603aa1ed450633288aefead953b30bded59cb599a6",
@@ -87,6 +96,14 @@
             ],
             "index": "pypi",
             "version": "==2.1.2"
+        },
+        "pyserial": {
+            "hashes": [
+                "sha256:3c77e014170dfffbd816e6ffc205e9842efb10be9f58ec16d3e8675b4925cddb",
+                "sha256:c4451db6ba391ca6ca299fb3ec7bae67a5c55dde170964c7a14ceefec02f2cf0"
+            ],
+            "index": "pypi",
+            "version": "==3.5"
         }
     },
     "develop": {}

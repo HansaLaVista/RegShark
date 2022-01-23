@@ -24,7 +24,7 @@ class Game:
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
-        self.game = ReggaeShark()
+        self.game = ReggaeShark(self.screen)
         self.game_view = GameView(self.game, self.screen, self.font)
         #self.manager = pygame_gui.UIManager()
 
@@ -37,11 +37,13 @@ class Game:
         self.draw_components()
 
     def update_game(self, dt):
+        self.game.update()
         pass
 
     def draw_components(self):
         self.screen.fill([0, 0, 0])
         self.game_view.draw_game()
+        self.game.draw()
         pygame.display.flip()
 
     def handle_events(self):
@@ -61,6 +63,15 @@ class Game:
 
     def handle_key_down(self, event):
         self.keyboard_handler.key_pressed(event.key)
+        if event.key == pygame.K_w:
+            self.game.direction_change([0, -1])
+        if event.key == pygame.K_s:
+            self.game.direction_change([0, 1])
+        if event.key == pygame.K_a:
+            self.game.direction_change([-1, 0])
+        if event.key == pygame.K_d:
+            self.game.direction_change([1, 0])
+            print("oh")
 
     def handle_key_up(self, event):
         self.keyboard_handler.key_released(event.key)

@@ -284,32 +284,70 @@ if __name__ == "__main__":
     # generate map by adding walls until there's no more room
     while tileMap.add_wall_obstacle(extend=True):
         pass
-
+class Maze:
     # reflect the first 14 columns to print the map
+    def __init__(self):
+        pass
 
-    aray2d = []
-    counterForSomeReason = 0
-    for line in str(tileMap).splitlines():
-        aray = []
-        s = line[:15]
-        #print(s + s[::-1])
-        q = s + s[::-1]
-        print(range(len(q)))
-        for e in range(len(q)):
-            aray.append(q[e])
-        print(aray)
-        if counterForSomeReason == 0:
-            aray2d = aray
-            counterForSomeReason +=1
-        else:
-            aray2d.append(aray)
-    print(aray2d)
+    def generate_matrix(self):
 
+        tileMap = Map(16, 31, """
+                            ||||||||||||||||
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |.........||||||
+                            |.........||||||
+                            |.........||||||
+                            |.........||||||
+                            |.........||||||
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            |...............
+                            ||||||||||||||||
+                            """)
+        # verbosity option (-v)
+        if len(sys.argv) > 1 and sys.argv[1] == "-v":
+            tileMap.verbose = True
 
+        # generate map by adding walls until there's no more room
+        while tileMap.add_wall_obstacle(extend=True):
+            pass
 
-
-    def draw(self, temp_screen):
-        for i in range(tileMap(row())):
-            for j in range():
-                if tileMap[i] == '.':
-                    pygame.draw.square
+        aray2d = []
+        counterForSomeReason = 0
+        for line in str(tileMap).splitlines():
+                aray = []
+                s = line[:15]
+                #print(s + s[::-1])
+                q = s + s[::-1]
+                print(range(len(q)))
+                for e in range(len(q)):
+                    aray.append(q[e])
+                print(aray)
+                if counterForSomeReason == 0:
+                    aray2d = aray
+                    counterForSomeReason +=1
+                else:
+                    aray2d.append(aray)
+        #print(aray2d)
+        #print(aray2d[1][1])
+        return aray2d

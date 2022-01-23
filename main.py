@@ -28,7 +28,7 @@ class Game:
         self.game = ReggaeShark(self.screen)
         self.game_view = GameView(self.game, self.screen, self.font)
         self.Map = Map
-        song = AudioSegment.from_mp3("8-bit-reggae.mp3")
+        #song = AudioSegment.from_mp3("8-bit-reggae.mp3")
         #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):
@@ -47,7 +47,6 @@ class Game:
         self.screen.fill([0, 0, 0])
         self.game_view.draw_game()
         self.game.draw()
-        self.Map.draw(self, self.screen)
         pygame.display.flip()
 
     def handle_events(self):

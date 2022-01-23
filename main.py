@@ -28,6 +28,7 @@ class Game:
         self.game = ReggaeShark(self.screen)
         self.game_view = GameView(self.game, self.screen, self.font)
         self.Map = Map
+        song = AudioSegment.from_mp3("8-bit-reggae.mp3")
         #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):
@@ -74,7 +75,6 @@ class Game:
             self.game.direction_change([-1, 0])
         if event.key == pygame.K_d:
             self.game.direction_change([1, 0])
-            print("oh")
 
     def handle_key_up(self, event):
         self.keyboard_handler.key_released(event.key)

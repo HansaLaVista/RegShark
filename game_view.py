@@ -1,6 +1,4 @@
 from pygame import draw
-from tictactoe.tic_tac_toe import TicTacToe
-
 
 
 class GameView:

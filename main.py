@@ -1,8 +1,11 @@
+import sys
+
 import pygame
-from Reggae Shark import ReggaeShark
+from ReggaeShark import ReggaeShark
 from pydub import AudioSegment
 
 import pygame_gui
+from game_view import GameView
 import pyserial
 from pyduinobridge import Bridge_py
 
@@ -21,7 +24,7 @@ class Game:
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
-        self.game = reggae_shark()
+        self.game = ReggaeShark()
         self.game_view = GameView(self.game, self.screen, self.font)
         self.manager = pygame_gui.UIManager()
 
@@ -33,51 +36,51 @@ class Game:
         self.update_game(delta_time)
         self.draw_components()
 
-    #def update_game(self, dt):
+    def update_game(self, dt):
+        pass
 
     def draw_components(self):
-        self.screen.fill([0,0,0])
+        self.screen.fill([0, 0, 0])
         self.game_view.draw_game()
         pygame.display.flip()
 
     def handle_events(self):
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    self.handle_key_down(event)
-                if event.type == pygame.KEYUP:
-                    self.handle_key_up(event)
-                if event.type == pygame.MOUSEMOTION:
-                    self.handle_mouse_motion(event)
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    self.handle_mouse_pressed(event)
-                if event.type == pygame.MOUSEBUTTONUP:
-                    self.handle_mouse_released(event)
-
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                self.handle_key_down(event)
+            if event.type == pygame.KEYUP:
+                self.handle_key_up(event)
+            if event.type == pygame.MOUSEMOTION:
+                self.handle_mouse_motion(event)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.handle_mouse_pressed(event)
+            if event.type == pygame.MOUSEBUTTONUP:
+                self.handle_mouse_released(event)
 
     def handle_key_down(self, event):
-            self.keyboard_handler.key_pressed(event.key)
-
+        self.keyboard_handler.key_pressed(event.key)
 
     def handle_key_up(self, event):
-            self.keyboard_handler.key_released(event.key)
-
+        self.keyboard_handler.key_released(event.key)
 
     def handle_mouse_motion(self, event):
-            pass
-
+        pass
 
     def handle_mouse_pressed(self, event):
-           # self.game_view.on_mouse_clicked(pygame.mouse.get_pos())
-            pass
-           #self.game_view.on_mouse_clicked(pygame.mouse.get_pos())
+        # self.game_view.on_mouse_clicked(pygame.mouse.get_pos())
+        # self.game_view.on_mouse_clicked(pygame.mouse.get_pos())
+        pass
 
     def handle_mouse_released(self, event):
-            pass
+        pass
+
 
 # Press the green button in the gutter to run the script.
+
 if __name__ == '__main__':
+
     game = Game()
     while True:
         game.game_loop()

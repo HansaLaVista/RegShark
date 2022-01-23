@@ -4,10 +4,10 @@ import pygame
 from ReggaeShark import ReggaeShark
 from pydub import AudioSegment
 
-import pygame_gui
+#import pygame_gui
 from game_view import GameView
-import pyserial
-from pyduinobridge import Bridge_py
+#import pyserial
+#from pyduinobridge import Bridge_py
 
 from helpers.Constants import Constants
 from helpers.keyboardHandler import KeyboardHandler
@@ -26,7 +26,7 @@ class Game:
         self.time = pygame.time.get_ticks()
         self.game = ReggaeShark()
         self.game_view = GameView(self.game, self.screen, self.font)
-        self.manager = pygame_gui.UIManager()
+        #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):
         current_time = pygame.time.get_ticks()

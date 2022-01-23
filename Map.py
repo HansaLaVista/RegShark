@@ -286,9 +286,27 @@ if __name__ == "__main__":
         pass
 
     # reflect the first 14 columns to print the map
+
+    aray2d = []
+    counterForSomeReason = 0
     for line in str(tileMap).splitlines():
-        s = line[:14]
-        print(s + s[::-1])
+        aray = []
+        s = line[:15]
+        #print(s + s[::-1])
+        q = s + s[::-1]
+        print(range(len(q)))
+        for e in range(len(q)):
+            aray.append(q[e])
+        print(aray)
+        if counterForSomeReason == 0:
+            aray2d = aray
+            counterForSomeReason +=1
+        else:
+            aray2d.append(aray)
+    print(aray2d)
+
+
+
 
     def draw(self, temp_screen):
         for i in range(tileMap(row())):

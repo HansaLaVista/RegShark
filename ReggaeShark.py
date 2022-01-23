@@ -14,7 +14,7 @@ class ReggaeShark:
         self.pos[1] += self.direction[1] * self.speed
 
     def draw(self):
-        pygame.draw.ellipse(self.screen, [255, 255, 255], [[self.pos[0], self.pos[1]], [20, 20]])
+        pygame.draw.ellipse(self.screen, [100, 100, 100], [[self.pos[0], self.pos[1]], [20, 20]])
 
     def direction_change(self, new_direction):
         self.direction = new_direction

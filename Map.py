@@ -332,22 +332,30 @@ class Maze:
         while tileMap.add_wall_obstacle(extend=True):
             pass
 
-        aray2d = []
+        self.aray2d = [[]]
+
+
         counterForSomeReason = 0
         for line in str(tileMap).splitlines():
                 aray = []
                 s = line[:15]
                 #print(s + s[::-1])
                 q = s + s[::-1]
-                print(range(len(q)))
+                #print(range(len(q)))
                 for e in range(len(q)):
                     aray.append(q[e])
-                print(aray)
+                #print(aray)
                 if counterForSomeReason == 0:
-                    aray2d = aray
+                    self.aray2d = aray
                     counterForSomeReason +=1
                 else:
-                    aray2d.append(aray)
-        #print(aray2d)
+                    self.aray2d.append(aray)
+
+        self.array_2d = [['.' for x in range(len(self.aray2d))] for i in range(len(self.aray2d[0]))]
+        for a in range(len(self.aray2d)):
+            for b in range(len(self.aray2d[0])):
+                self.array_2d[b][a] = self.aray2d[a][b]
+        print(self.aray2d)
         #print(aray2d[1][1])
-        return aray2d
+        print(self.array_2d)
+        return self.array_2d

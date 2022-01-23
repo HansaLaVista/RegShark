@@ -2,6 +2,7 @@ import sys
 
 import pygame
 from ReggaeShark import ReggaeShark
+import Map
 from pydub import AudioSegment
 
 #import pygame_gui
@@ -26,6 +27,7 @@ class Game:
         self.time = pygame.time.get_ticks()
         self.game = ReggaeShark(self.screen)
         self.game_view = GameView(self.game, self.screen, self.font)
+        self.Map = Map
         #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):
@@ -44,6 +46,7 @@ class Game:
         self.screen.fill([0, 0, 0])
         self.game_view.draw_game()
         self.game.draw()
+        self.Map.draw(self, self.screen)
         pygame.display.flip()
 
     def handle_events(self):

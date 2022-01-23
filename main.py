@@ -3,7 +3,6 @@ import sys
 import pygame
 from ReggaeShark import ReggaeShark
 import Map
-from pydub import AudioSegment
 
 #import pygame_gui
 from game_view import GameView
@@ -20,6 +19,9 @@ class Game:
 
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
+        pygame.mixer.music.load("reggae.mp3")
+        pygame.mixer.music.play()
         self.size = (Constants.Window_width, Constants.Window_height)
         self.screen = pygame.display.set_mode(self.size)
         self.keyboard_handler = KeyboardHandler()
@@ -28,7 +30,7 @@ class Game:
         self.game = ReggaeShark(self.screen)
         self.game_view = GameView(self.game, self.screen, self.font)
         self.Map = Map
-        #song = AudioSegment.from_mp3("8-bit-reggae.mp3")
+
         #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):

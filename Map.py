@@ -284,6 +284,8 @@ if __name__ == "__main__":
     # generate map by adding walls until there's no more room
     while tileMap.add_wall_obstacle(extend=True):
         pass
+
+
 class Maze:
     # reflect the first 14 columns to print the map
     def __init__(self):
@@ -347,7 +349,7 @@ class Maze:
                 #print(aray)
                 if counterForSomeReason == 0:
                     self.aray2d = aray
-                    counterForSomeReason +=1
+                    counterForSomeReason += 1
                 else:
                     self.aray2d.append(aray)
 
@@ -355,7 +357,7 @@ class Maze:
         for a in range(len(self.aray2d)):
             for b in range(len(self.aray2d[0])):
                 self.array_2d[b][a] = self.aray2d[a][b]
-        print(self.aray2d)
+        #print(self.aray2d)
         #print(aray2d[1][1])
-        print(self.array_2d)
+        #print(self.array_2d)
         return self.array_2d

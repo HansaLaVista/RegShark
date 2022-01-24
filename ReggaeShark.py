@@ -1,9 +1,17 @@
 import pygame
+import os
+from helpers.Constants import Constants
 
 
 class ReggaeShark:
 
     def __init__(self, screen):
+        game_folder = os.path.dirname(__file__)
+        sprite_folder = os.path.join(game_folder, 'sprites')
+        self.sprite = pygame.image.load(os.path.join(sprite_folder, 'reggae_shark.png')).convert()
+        self.rect = self.sprite.get_rect()
+        self.rect.center = (400, 400)
+        self.sprite.set_colorkey((255, 255, 255))
         self.screen = screen
         self.pos = [400, 400]
         self.direction = [0, 0]
@@ -14,7 +22,7 @@ class ReggaeShark:
         self.pos[1] += self.direction[1] * self.speed
 
     def draw(self):
-        pygame.draw.ellipse(self.screen, [100, 100, 100], [[self.pos[0], self.pos[1]], [20, 20]])
+        self.screen.blit(self.sprite, (self.pos[0], self.pos[1]))
 
     def direction_change(self, new_direction):
         self.direction = new_direction

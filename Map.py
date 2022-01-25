@@ -328,10 +328,9 @@ class Maze:
     def get_neighbours(self, tile):
         neighbours = []
         directions = [[1,0],[-1,0],[0,1],[0,-1]]
-        a = 0
         for a in range(len(directions)):
             if self.array_2d[tile[0]+directions[a][0]][tile[1]+directions[a][1]] != '|':
-                neighbours.append([tile[0]+directions[a][0], tile[1]+directions[a][1]])
+                neighbours.append((tile[0]+directions[a][0], tile[1]+directions[a][1]))
         return neighbours
 
     def get_tile(self, position, tile_size):

@@ -11,11 +11,11 @@ class ReggaeShark:
         self.sprite = pygame.image.load(os.path.join(sprite_folder, 'reggae_shark.png')).convert()
         self.rect = self.sprite.get_rect()
         self.rect.center = (400, 400)
-        self.sprite.set_colorkey((255, 255, 255))
+        self.sprite.set_colorkey((0, 0, 0))
         self.screen = screen
         self.pos = [400, 400]
         self.direction = [0, 0]
-        self.speed = 1/8
+        self.speed = 1 / 8
 
     def update(self):
         self.pos[0] += self.direction[0] * self.speed

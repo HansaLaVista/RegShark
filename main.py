@@ -5,6 +5,7 @@ from ReggaeShark import ReggaeShark
 import Map
 
 #import pygame_gui
+from baddies import Baddies
 from game_view import GameView
 #import pyserial
 #from pyduinobridge import Bridge_py
@@ -22,12 +23,15 @@ class Game:
         pygame.mixer.init()
         pygame.mixer.music.load("reggae.mp3")
         pygame.mixer.music.play()
+        pygame.mouse.set_visible(False)
+        self.background = pygame.image.load("Background.jpg")
         self.size = (Constants.Window_width, Constants.Window_height)
         self.screen = pygame.display.set_mode(self.size)
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
         self.game = ReggaeShark(self.screen)
+        self.baddies = Baddies(self.screen)
         self.game_view = GameView(self.game, self.screen, self.font)
         self.Map = Map
 
@@ -46,9 +50,10 @@ class Game:
         pass
 
     def draw_components(self):
-        self.screen.fill([0, 0, 0])
+        self.screen.blit(self.background, (0, 0))
         self.game_view.draw_game()
         self.game.draw()
+        self.baddies.draw()
         pygame.display.flip()
 
     def handle_events(self):

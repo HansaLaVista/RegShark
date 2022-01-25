@@ -52,7 +52,7 @@ class Game:
         self.draw_components()
 
     def update_game(self, dt):
-        self.game.update()
+        self.game.update(dt)
         pass
 
     def draw_components(self):

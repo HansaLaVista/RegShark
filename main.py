@@ -30,7 +30,7 @@ class Game:
         self.size = (Constants.window_width, Constants.window_height)
         self.screen = pygame.display.set_mode(self.size)
         self.maze = Maze()
-        self.maze_map = [""]
+        # self.maze_map = [""]
         self.maze_map = self.maze.generate_matrix()
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
@@ -41,6 +41,7 @@ class Game:
         self.Map = Map
         self.game = ReggaeShark(self.screen, self.maze_map, self.size, Constants.tile_size, self.maze)
         self.game_view = GameView(self.game, self.screen, self.font, self.maze_map, Constants.tile_size)
+        self.arduino_data = ""
         #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):
@@ -50,6 +51,7 @@ class Game:
         self.handle_events()
         self.update_game(delta_time)
         self.draw_components()
+        self.arduino_data = self.arduino.readline().decode('ascii').strip()
 
     def update_game(self, dt):
         self.game.update(dt)
@@ -79,19 +81,18 @@ class Game:
                 self.handle_mouse_released(event)
 
     def handle_key_down(self, event):
-        arduino_data = self.arduino.readline().decode('ascii').strip()
         self.keyboard_handler.key_pressed(event.key)
         # Moving up
-        if event.key == pygame.K_w or arduino_data == 'U':
+        if event.key == pygame.K_w or self.arduino_data == "U":
             self.game.direction_change([0, -1])
         # Moving down
-        if event.key == pygame.K_s or arduino_data == 'D':
+        if event.key == pygame.K_s or self.arduino_data == "D":
             self.game.direction_change([0, 1])
         # Moving left
-        if event.key == pygame.K_a or arduino_data == 'L':
+        if event.key == pygame.K_a or self.arduino_data == "L":
             self.game.direction_change([-1, 0])
         # Moving right
-        if event.key == pygame.K_d or arduino_data == 'R':
+        if event.key == pygame.K_d or self.arduino_data == "R":
             self.game.direction_change([1, 0])
 
     def handle_key_up(self, event):

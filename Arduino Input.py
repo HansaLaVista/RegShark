@@ -1,4 +1,6 @@
 import serial
+import game_view
+
 arduino = serial.Serial('COM3', 115200)
 
 check = True

@@ -42,7 +42,6 @@ class ReggaeShark:
             self.direction = [0, 0]
 
     def draw(self):
-        pygame.draw.ellipse(self.screen, [100, 100, 100], [[self.pos[0]+2.5, self.pos[1]+2.5], [self.size, self.size]])
         self.screen.blit(self.sprite, (self.pos[0]-self.tile_size/2, self.pos[1]-self.tile_size/2))
 
     def direction_change(self, new_direction):

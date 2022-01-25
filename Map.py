@@ -309,7 +309,7 @@ class Maze:
                     self.aray2d = aray
                     counterForSomeReason += 1
                 else:
-                    self.aray2d.append(aray)
+                    self.aray2d.append(str(aray))
 
         self.array_2d = [['.' for x in range(len(self.aray2d))] for i in range(len(self.aray2d[0]))]
         for a in range(len(self.aray2d)):

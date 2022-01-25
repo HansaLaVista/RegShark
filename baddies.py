@@ -16,7 +16,7 @@ class Baddies(pygame.sprite.Sprite):
         self.screen = screen
         self.maze = maze
         self.tile_size = tile_size
-        self.pos = [Constants.Window_width / 2, Constants.Window_height - 50]
+        self.pos = [Constants.window_width / 2, Constants.window_height - 50]
         self.direction = [0, 0]
         self.speed = 1 / 8
         self.rect = self.sprite.get_rect()
@@ -24,8 +24,8 @@ class Baddies(pygame.sprite.Sprite):
 
     def update(self, shark_pos):
         shark_tile = self.maze.get_tile(shark_pos, self.tile_size)
-        queue = self.greedy_search(shark_tile)
-        self.direction = queue[0]-self.maze.get_tile(self.pos, self.tile_size)
+        # queue = self.greedy_search(shark_tile)
+        # self.direction = queue[0]-self.maze.get_tile(self.pos, self.tile_size)
         self.pos[0] += self.direction[0] * self.speed
         self.pos[1] += self.direction[1] * self.speed
 

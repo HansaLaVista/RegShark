@@ -5,7 +5,7 @@ import os
 
 class GameView:
 
-    def __init__(self, game, screen, font, maze_map, Tile_size, maze):
+    def __init__(self, game, screen, maze_map, tile_size, maze):
         self.game = game
         self.screen = screen
         screen_size = self.screen.get_size()
@@ -14,7 +14,7 @@ class GameView:
         self.sprite = pygame.image.load(os.path.join(sprite_folder, 'Coral.png')).convert()
         self.rect = self.sprite.get_rect()
         self.sprite.set_colorkey((0, 0, 0))
-        self.tile_size = Tile_size
+        self.tile_size = tile_size
         self.offset = [100, 150]
         self.maze = maze
         self.map = [""]

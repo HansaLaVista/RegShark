@@ -1,4 +1,4 @@
 class Constants:
-    Window_width = 750
-    Window_height = 775
-    Tile_size = 25
+    window_width = 750
+    window_height = 775
+    tile_size = 25

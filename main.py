@@ -2,13 +2,14 @@ import sys
 
 import pygame
 from ReggaeShark import ReggaeShark
+from Map import Map
 from Map import Maze
 
 #import pygame_gui
 from baddies import Baddies
 from game_view import GameView
-#import pyserial
-#from pyduinobridge import Bridge_py
+import serial
+
 
 from helpers.Constants import Constants
 from helpers.keyboardHandler import KeyboardHandler
@@ -24,8 +25,9 @@ class Game:
         pygame.mixer.music.load("reggae.mp3")
         pygame.mouse.set_visible(False)
         self.background = pygame.image.load("Background.jpg")
+        self.arduino = serial.Serial('COM3', 115200)
         #pygame.mixer.music.play()
-        self.size = (Constants.Window_width, Constants.Window_height)
+        self.size = (Constants.window_width, Constants.window_height)
         self.screen = pygame.display.set_mode(self.size)
         self.maze = Maze()
         self.maze_map = [""]
@@ -33,9 +35,12 @@ class Game:
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
-        self.baddies = Baddies(self.screen, self.maze, Constants.Tile_size)
-        self.game = ReggaeShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
-        self.game_view = GameView(self.game, self.screen, self.font, self.maze_map, Constants.Tile_size, self.maze)
+        self.game = ReggaeShark(self.screen, self.maze_map, self.size, Constants.tile_size, self.maze)
+        self.baddies = Baddies(self.screen, self.maze, Constants.tile_size)
+        self.game_view = GameView(self.game, self.screen, self.maze_map, Constants.tile_size, self.maze)
+        self.Map = Map
+        self.game = ReggaeShark(self.screen, self.maze_map, self.size, Constants.tile_size, self.maze)
+        self.game_view = GameView(self.game, self.screen, self.font, self.maze_map, Constants.tile_size)
         #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):
@@ -74,14 +79,19 @@ class Game:
                 self.handle_mouse_released(event)
 
     def handle_key_down(self, event):
+        arduino_data = self.arduino.readline().decode('ascii').strip()
         self.keyboard_handler.key_pressed(event.key)
-        if event.key == pygame.K_w:
+        # Moving up
+        if event.key == pygame.K_w or arduino_data == 'U':
             self.game.direction_change([0, -1])
-        if event.key == pygame.K_s:
+        # Moving down
+        if event.key == pygame.K_s or arduino_data == 'D':
             self.game.direction_change([0, 1])
-        if event.key == pygame.K_a:
+        # Moving left
+        if event.key == pygame.K_a or arduino_data == 'L':
             self.game.direction_change([-1, 0])
-        if event.key == pygame.K_d:
+        # Moving right
+        if event.key == pygame.K_d or arduino_data == 'R':
             self.game.direction_change([1, 0])
 
     def handle_key_up(self, event):

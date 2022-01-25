@@ -320,6 +320,20 @@ class Maze:
         #print(self.array_2d)
         return self.array_2d
 
+    def manhat_distance(self, tile, target_tile):
+        dx = abs(tile[0] - target_tile[0])
+        dy = abs(tile[1] - target_tile[1])
+        return dx + dy
+
+    def get_neighbours(self, tile):
+        neighbours = []
+        directions = [[1,0],[-1,0],[0,1],[0,-1]]
+        a = 0
+        for a in range(len(directions)):
+            if self.array_2d[tile[0]+directions[a][0]][tile[1]+directions[a][1]] != '|':
+                neighbours.append([tile[0]+directions[a][0], tile[1]+directions[a][1]])
+        return neighbours
+
     def get_tile(self, position, tile_size):
         self.tile_size = tile_size
         self.tile = (int((position[0]) / self.tile_size), int((position[1]) / self.tile_size))

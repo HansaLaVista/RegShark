@@ -31,4 +31,4 @@ class GameView:
                 else:
                     self.screen.blit(self.sprite, [a * 25, b * 25])
 
-                    pygame.draw.rect(self.screen, [0, 0, 0], [a * 25 +1, b * 25 +1, 25, 25])
+                    #pygame.draw.rect(self.screen, [0, 0, 0], [a * 25 +1, b * 25 +1, 25, 25])

@@ -33,7 +33,7 @@ class Game:
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
-        self.baddies = Baddies(self.screen)
+        self.baddies = Baddies(self.screen, self.maze, Constants.Tile_size)
         self.game = ReggaeShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
         self.game_view = GameView(self.game, self.screen, self.font, self.maze_map, Constants.Tile_size, self.maze)
         #self.manager = pygame_gui.UIManager()
@@ -48,6 +48,7 @@ class Game:
 
     def update_game(self, dt):
         self.game.update(dt)
+        self.baddies.update(self.game.pos)
         pass
 
     def draw_components(self):

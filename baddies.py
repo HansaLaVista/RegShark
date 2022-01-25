@@ -17,7 +17,7 @@ class Baddies(pygame.sprite.Sprite):
         self.screen = screen
         self.maze = maze
         self.tile_size = tile_size
-        self.pos = [Constants.Window_width -50, 15*self.tile_size]
+        self.pos = [Constants.window_width -50, 15*self.tile_size]
         self.direction = [0, 0]
         self.speed = 1 / 8
         self.rect = self.sprite.get_rect()
@@ -42,7 +42,7 @@ class Baddies(pygame.sprite.Sprite):
         current_tile = self.maze.get_tile(self.pos, self.tile_size)
         gstack = [current_tile, current_tile]
         visited = []
-        options = [{}]
+        options = {}
         scores = [999]
         counter = 0
         temp_score = 0
@@ -63,7 +63,7 @@ class Baddies(pygame.sprite.Sprite):
                     for next_tile in neighbours:
                         if next_tile not in visited:
                             score = self.maze.manhat_distance(next_tile, target_tile)
-                            options.append({'tile': next_tile, 'score': score})
+                            options[next_tile] = score
                             #sorted(options, score)
                             #options.sort(key=self.myKey(e))
                             print(options)

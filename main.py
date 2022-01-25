@@ -79,21 +79,23 @@ class Game:
                 self.handle_mouse_pressed(event)
             if event.type == pygame.MOUSEBUTTONUP:
                 self.handle_mouse_released(event)
+        # Moving up
+        if self.arduino_data == "U":
+            self.game.direction_change([0, -1])
+        # Moving down
+        if self.arduino_data == "D":
+            self.game.direction_change([0, 1])
+        # Moving left
+        if self.arduino_data == "L":
+            self.game.direction_change([-1, 0])
+        # Moving right
+        if self.arduino_data == "R":
+            self.game.direction_change([1, 0])
 
     def handle_key_down(self, event):
         self.keyboard_handler.key_pressed(event.key)
-        # Moving up
-        if event.key == pygame.K_w or self.arduino_data == "U":
-            self.game.direction_change([0, -1])
-        # Moving down
-        if event.key == pygame.K_s or self.arduino_data == "D":
-            self.game.direction_change([0, 1])
-        # Moving left
-        if event.key == pygame.K_a or self.arduino_data == "L":
-            self.game.direction_change([-1, 0])
-        # Moving right
-        if event.key == pygame.K_d or self.arduino_data == "R":
-            self.game.direction_change([1, 0])
+
+
 
     def handle_key_up(self, event):
         self.keyboard_handler.key_released(event.key)

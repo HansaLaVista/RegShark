@@ -1,6 +1,6 @@
 import pygame
 import os
-import bisect
+
 
 from helpers.Constants import Constants
 
@@ -51,7 +51,6 @@ class Baddies(pygame.sprite.Sprite):
         while len(gstack) > 0:
             current_tile = gstack.pop(0)
             print(current_tile, target_tile)
-
             if current_tile != target_tile:
                 print("q")
                 print(gstack)

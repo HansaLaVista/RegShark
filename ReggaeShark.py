@@ -1,6 +1,5 @@
 import pygame
 import os
-from helpers.Constants import Constants
 from Map import Maze
 
 

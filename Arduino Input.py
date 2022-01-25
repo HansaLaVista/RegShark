@@ -1,10 +1,9 @@
 import serial
-import game_view
 
-arduino = serial.Serial('COM3', 115200)
 
-check = True
-while check:
-    arduino_data = arduino.readline().decode('ascii').strip()
+def input():
+    arduino = serial.Serial('COM3', 115200)
 
-    print(arduino_data)
+    check = True
+    while check:
+        arduino_data = arduino.readline().decode('ascii').strip()

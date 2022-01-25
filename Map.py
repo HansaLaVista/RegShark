@@ -1,8 +1,5 @@
-from pygame import draw
-
 import sys
 import random
-import pygame
 
 
 # takes multi-line map string, trims indentation, replaces newlines with given separator

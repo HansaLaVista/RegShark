@@ -242,54 +242,12 @@ class Map:
         return True
 
 
-if __name__ == "__main__":
-
-    tileMap = Map(16, 31, """
-                    ||||||||||||||||
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |.........||||||
-                    |.........||||||
-                    |.........||||||
-                    |.........||||||
-                    |.........||||||
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    |...............
-                    ||||||||||||||||
-                    """)
-    # verbosity option (-v)
-    if len(sys.argv) > 1 and sys.argv[1] == "-v":
-        tileMap.verbose = True
-
-    # generate map by adding walls until there's no more room
-    while tileMap.add_wall_obstacle(extend=True):
-        pass
-
-
 class Maze:
     # reflect the first 14 columns to print the map
     def __init__(self):
-        pass
+        self.next_tile = (-1, -1)
+        self.array_2d = [[]]
+        self.current_tile = (0,0)
 
     def generate_matrix(self):
 
@@ -361,3 +319,32 @@ class Maze:
         #print(aray2d[1][1])
         #print(self.array_2d)
         return self.array_2d
+
+    def collision_detection_direction(self, pos, direction, tile_size):
+        self.tile_size = tile_size
+        self.pos = [pos[0]+self.tile_size/2, pos[1] + self.tile_size/2]
+        #self.pos = [pos[0], pos[1] ]
+        self.direction = direction
+        if self.direction[0]+self.direction[1] <= 0:
+            self.current_tile = (int((pos[0])/self.tile_size), int((pos[1])/self.tile_size))
+        else:
+            self.current_tile = (int((pos[0]) / self.tile_size), int((pos[1]) / self.tile_size))
+        print(self.current_tile)
+        self.next_tile = (self.current_tile[0]+direction[0], self.current_tile[1]+direction[1])
+        print(self.next_tile)
+        if self.array_2d[self.next_tile[0]][self.next_tile[1]] == ".":# and pos[0]-self.next_tile[0]*self.tile_size < 25:
+
+            return False
+        else:
+            return True
+
+    def collision_detection(self, pos, direction, tile_size):
+        pass
+
+    def center_detection(self):
+        if self.pos == [self.current_tile[0] * self.tile_size, self.current_tile[1] * self.tile_size]:
+            return True
+        else:
+            return False
+
+        # and self.pos != [current_tile[0] * tile_size, current_tile[1] * tile_size]:

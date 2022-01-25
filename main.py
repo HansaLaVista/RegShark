@@ -22,7 +22,6 @@ class Game:
         pygame.init()
         pygame.mixer.init()
         pygame.mixer.music.load("reggae.mp3")
-        pygame.mixer.music.play()
         pygame.mouse.set_visible(False)
         self.background = pygame.image.load("Background.jpg")
         #pygame.mixer.music.play()
@@ -34,11 +33,7 @@ class Game:
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
-        self.game = ReggaeShark(self.screen)
         self.baddies = Baddies(self.screen)
-        self.game_view = GameView(self.game, self.screen, self.font)
-        self.Map = Map
-
         self.game = ReggaeShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
         self.game_view = GameView(self.game, self.screen, self.font, self.maze_map, Constants.Tile_size, self.maze)
         #self.manager = pygame_gui.UIManager()

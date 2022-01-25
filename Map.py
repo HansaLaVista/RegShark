@@ -346,15 +346,26 @@ class Maze:
         self.pos = pos
         self.direction = direction
         self.new_direction = new_direction
+        self.current_tile = self.get_tile(self.pos, self.tile_size)
+        self.next_tile = (self.current_tile[0]+self.new_direction[0],self.current_tile[1]+self.new_direction[1])
         print(self.pos, (self.pos[0] % self.tile_size)**2, (self.pos[1] % self.tile_size)**2)
-        if (self.new_direction[0] == -self.direction[0] or self.new_direction[1] == -self.direction[1]) and self.direction != [0, 0]:
+        if (self.new_direction[0] == -self.direction[0] or self.new_direction[1] == -self.direction[1]) and \
+                self.direction != [0, 0]:
             print("k")
             return False
-        if (self.pos[0] % self.tile_size)**2 > 2 and (self.pos[1] % self.tile_size)**2 > 2:
+        if (self.pos[0] % self.tile_size)**2 > 2 and (self.pos[1] % self.tile_size)**2 > 2 and \
+                self.array_2d[self.next_tile[0]][self.next_tile[1]] == '|':
             print("t")
             return True
         else:
-            return False
+
+            if self.array_2d[self.next_tile[0]][self.next_tile[1]] == '.':# and (self.pos[0] % (self.tile_size)**2 < 2) \
+                     #and ((self.pos[1] % self.tile_size)**2 < 2): #and self.direction != [0, 0]:
+                 return False
+            else:
+                print("j")
+                return True
+
 
 
         #(self.current_tile[0] + self.direction[0], self.current_tile[1] + self.direction[1])

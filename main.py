@@ -2,7 +2,7 @@ import sys
 
 import pygame
 from ReggaeShark import ReggaeShark
-import Map
+from Map import Maze
 
 #import pygame_gui
 from baddies import Baddies
@@ -25,8 +25,12 @@ class Game:
         pygame.mixer.music.play()
         pygame.mouse.set_visible(False)
         self.background = pygame.image.load("Background.jpg")
+        #pygame.mixer.music.play()
         self.size = (Constants.Window_width, Constants.Window_height)
         self.screen = pygame.display.set_mode(self.size)
+        self.maze = Maze()
+        self.maze_map = [""]
+        self.maze_map = self.maze.generate_matrix()
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
@@ -35,6 +39,8 @@ class Game:
         self.game_view = GameView(self.game, self.screen, self.font)
         self.Map = Map
 
+        self.game = ReggaeShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
+        self.game_view = GameView(self.game, self.screen, self.font, self.maze_map, Constants.Tile_size, self.maze)
         #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):

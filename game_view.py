@@ -19,6 +19,8 @@ class GameView:
         self.tile_size = tile_size
         self.offset = [100, 150]
         self.maze = maze
+        #self.map = []
+        self.map = maze_map
 
     def draw_game(self):
         self.draw_maze()

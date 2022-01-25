@@ -41,8 +41,9 @@ class Baddies(pygame.sprite.Sprite):
         target_tile = self.maze.get_tile(shark_pos, self.tile_size)
         current_tile = self.maze.get_tile(self.pos, self.tile_size)
         gstack = [current_tile, current_tile]
-        visited = []
+        visited = [(0,0)]
         options = {}
+        sorted_options = []
         scores = [999]
         counter = 0
         temp_score = 0
@@ -53,27 +54,26 @@ class Baddies(pygame.sprite.Sprite):
             print(current_tile, target_tile)
             if current_tile != target_tile:
                 print("q")
-                print(gstack)
-                if current_tile != visited or current_tile == visited:
+                if current_tile != visited:
                     print("h")
                     visited.append(current_tile)
                     neighbours = self.maze.get_neighbours(current_tile)
                     print(neighbours)
+                    options.clear()
+                    sorted_options.clear()
                     for next_tile in neighbours:
                         if next_tile not in visited:
                             score = self.maze.manhat_distance(next_tile, target_tile)
                             options[next_tile] = score
-                            #sorted(options, score)
+                            sorted_options = sorted(options.items(), key = lambda kv:(kv[1], kv[0]), reverse=True)
                             #options.sort(key=self.myKey(e))
                             print(options)
-
-
-                            for a in range(len(gstack)):
-                                if self.maze.manhat_distance(gstack[a], target_tile) < score:
-                                    gstack.insert(0, next_tile)
-
+                            print(sorted_options)
+                    for a in range(len(sorted_options)):
+                        gstack.insert(0,sorted_options[a][0])
             else:
                 break
+        print("nut", visited)
         return visited
 
 

@@ -8,7 +8,7 @@ from Map import Maze
 #import pygame_gui
 from baddies import Baddies
 from game_view import GameView
-import serial
+#import serial
 
 
 from helpers.Constants import Constants
@@ -25,7 +25,7 @@ class Game:
         pygame.mixer.music.load("reggae.mp3")
         pygame.mouse.set_visible(False)
         self.background = pygame.image.load("Background.jpg")
-        self.arduino = serial.Serial('COM3', 115200)
+        #self.arduino = serial.Serial('COM3', 115200)
         #pygame.mixer.music.play()
         self.size = (Constants.window_width, Constants.window_height)
         self.screen = pygame.display.set_mode(self.size)

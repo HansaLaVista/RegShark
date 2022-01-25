@@ -320,23 +320,53 @@ class Maze:
         #print(self.array_2d)
         return self.array_2d
 
-    def collision_detection_direction(self, pos, direction, tile_size):
+    def get_tile(self, position, tile_size):
+        self.tile_size = tile_size
+        self.tile = (int((position[0]) / self.tile_size), int((position[1]) / self.tile_size))
+        return self.tile
+
+    def collision_detection_straight(self, pos, direction, tile_size):
         self.tile_size = tile_size
         self.pos = [pos[0]+self.tile_size/2, pos[1] + self.tile_size/2]
         #self.pos = [pos[0], pos[1] ]
         self.direction = direction
-        if self.direction[0]+self.direction[1] <= 0:
-            self.current_tile = (int((pos[0])/self.tile_size), int((pos[1])/self.tile_size))
-        else:
-            self.current_tile = (int((pos[0]) / self.tile_size), int((pos[1]) / self.tile_size))
-        print(self.current_tile)
-        self.next_tile = (self.current_tile[0]+direction[0], self.current_tile[1]+direction[1])
-        print(self.next_tile)
-        if self.array_2d[self.next_tile[0]][self.next_tile[1]] == ".":# and pos[0]-self.next_tile[0]*self.tile_size < 25:
+        self.current_tile = self.get_tile(self.pos, self.tile_size)
+        self.next_tile = self.get_tile((self.pos[0]+ self.direction[0]*12.5,self.pos[1]+ self.direction[1]*12.5), self.tile_size)
+        if self.current_tile == self.next_tile:
 
             return False
         else:
+            if self.array_2d[self.next_tile[0]][self.next_tile[1]] == '|':
+                return True
+            else:
+                return False
+
+    def collision_detection_direction(self, pos, direction, new_direction, tile_size):
+        self.tile_size = tile_size
+        self.pos = pos
+        self.direction = direction
+        self.new_direction = new_direction
+        print(self.pos, (self.pos[0] % self.tile_size)**2, (self.pos[1] % self.tile_size)**2)
+        if (self.new_direction[0] == -self.direction[0] or self.new_direction[1] == -self.direction[1]) and self.direction != [0, 0]:
+            print("k")
+            return False
+        if (self.pos[0] % self.tile_size)**2 > 2 and (self.pos[1] % self.tile_size)**2 > 2:
+            print("t")
             return True
+        else:
+            return False
+
+
+        #(self.current_tile[0] + self.direction[0], self.current_tile[1] + self.direction[1])
+        #(int((pos[0]) / self.tile_size), int((pos[1]) / self.tile_size))
+        # print(self.current_tile)
+        # #self.next_tile = (self.current_tile[0]+direction[0], self.current_tile[1]+direction[1])
+        # print(self.next_tile)
+        # if self.array_2d[self.next_tile[0]][self.next_tile[1]] == ".":# and pos[0]-self.next_tile[0]*self.tile_size < 25:
+        #
+        #     return False
+        # else:
+        #     return True
 
     def collision_detection(self, pos, direction, tile_size):
         pass

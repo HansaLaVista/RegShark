@@ -1,7 +1,7 @@
 import pygame
 import os
 from helpers.Constants import Constants
-from Map import Maze
+from Maze import Maze
 
 
 class ReggaeShark:
@@ -42,8 +42,8 @@ class ReggaeShark:
             self.direction = [0, 0]
 
     def draw(self):
-        pygame.draw.ellipse(self.screen, [100, 100, 100], [[self.pos[0]+2.5, self.pos[1]+2.5], [self.size, self.size]])
-        self.screen.blit(self.sprite, (self.pos[0], self.pos[1]))
+        #pygame.draw.ellipse(self.screen, [100, 100, 100], [[self.pos[0]+2.5, self.pos[1]+2.5], [self.size, self.size]])
+        self.screen.blit(self.sprite, (self.pos[0]-20, self.pos[1]-17))
 
     def direction_change(self, new_direction):
         #if self.maze.center_detection(): #or self.new_direction == [0, 0]:

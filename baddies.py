@@ -19,10 +19,18 @@ class Baddies(pygame.sprite.Sprite):
         self.speed = 1 / 8
         self.rect = self.sprite.get_rect()
         self.rect.center = (400, 400)
+        self.greedy_found = False
+        self.shark_pos = ()
 
-    def update(self):
+    def update(self, shark_pos):
+        if not self.greedy_found:
+            self.greedy_search()
+            self.greedy_found = True
         self.pos[0] += self.direction[0] * self.speed
         self.pos[1] += self.direction[1] * self.speed
 
     def draw(self):
         self.screen.blit(self.sprite, (400, 725))
+
+    def greedy_search(self):
+        pass

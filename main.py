@@ -2,7 +2,7 @@ import sys
 
 import pygame
 from ReggaeShark import ReggaeShark
-from Map import Maze
+from Maze import Maze
 
 #import pygame_gui
 from baddies import Baddies
@@ -34,8 +34,8 @@ class Game:
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
         self.baddies = Baddies(self.screen)
-        self.game = ReggaeShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
-        self.game_view = GameView(self.game, self.screen, self.font, self.maze_map, Constants.Tile_size, self.maze)
+        self.shark = ReggaeShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
+        self.game_view = GameView(self.shark, self.screen, self.font, self.maze_map, Constants.Tile_size, self.maze)
         #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):
@@ -47,13 +47,14 @@ class Game:
         self.draw_components()
 
     def update_game(self, dt):
-        self.game.update(dt)
+        self.shark.update(dt)
+        self.baddies.update(self.shark.pos)
         pass
 
     def draw_components(self):
         self.screen.blit(self.background, (0, 0))
         self.game_view.draw_game()
-        self.game.draw()
+        self.shark.draw()
         self.baddies.draw()
         pygame.display.flip()
 
@@ -75,13 +76,13 @@ class Game:
     def handle_key_down(self, event):
         self.keyboard_handler.key_pressed(event.key)
         if event.key == pygame.K_w:
-            self.game.direction_change([0, -1])
+            self.shark.direction_change([0, -1])
         if event.key == pygame.K_s:
-            self.game.direction_change([0, 1])
+            self.shark.direction_change([0, 1])
         if event.key == pygame.K_a:
-            self.game.direction_change([-1, 0])
+            self.shark.direction_change([-1, 0])
         if event.key == pygame.K_d:
-            self.game.direction_change([1, 0])
+            self.shark.direction_change([1, 0])
 
     def handle_key_up(self, event):
         self.keyboard_handler.key_released(event.key)
@@ -102,8 +103,8 @@ class Game:
 
 if __name__ == '__main__':
 
-    game = Game()
+    shark = Game()
     while True:
-        game.game_loop()
+        shark.game_loop()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

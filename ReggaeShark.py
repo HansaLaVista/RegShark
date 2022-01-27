@@ -15,7 +15,7 @@ class ReggaeShark:
         self.sprite.set_colorkey((0, 0, 0))
         self.screen = screen
         self.screen_size = screen_size
-        self.pos = [(self.screen_size[0]/2)-.5*tile_size, self.screen_size[1]-2*tile_size]
+        self.pos = [(self.screen_size[0]/2)-tile_size, self.screen_size[1]-2*tile_size]
         self.direction = [0, 0]
         self.new_direction = [0, 0]
         self.speed = 5/tile_size

@@ -1,4 +1,4 @@
-"This code was taken from .... we did not write this codes "
+"This code was taken from .... we did not write this code"
 
 import random
 

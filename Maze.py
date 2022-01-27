@@ -1,3 +1,5 @@
+"lines 13 - 54 & 59 - 61 were taken from ....."
+
 from Map import Map
 import sys
 
@@ -56,44 +58,43 @@ class Maze:
 
         for line in str(tileMap).splitlines():
             temp_row = []
-            s = line[:15]
-            q = s + s[::-1]
+            s = line[:15]       #takes first 15 characters from line
+            q = s + s[::-1]     #add the same characters but in reverse for symmetry
             for e in range(len(q)):
-                temp_row.append(q[e])
+                temp_row.append(q[e])   #put characters in list
             if counterForSomeReason == 0:
-                self.temp_2d_list = temp_row
+                self.temp_2d_list = temp_row    #adds first list to 2d list
                 counterForSomeReason += 1
             else:
-                self.temp_2d_list.append(temp_row)
+                self.temp_2d_list.append(temp_row)  #add the others lists to 2d list
 
         self.final_2d_list = [['.' for x in range(len(self.temp_2d_list))] for i in range(len(self.temp_2d_list[0]))]
+        #define final 2d list since the orientation of the maze is wrong
         for a in range(len(self.temp_2d_list)):
             for b in range(len(self.temp_2d_list[0])):
-                self.final_2d_list[b][a] = self.temp_2d_list[a][b]
-        #print(self.temp_2d_list)
-        #print(temp_2d_list[1][1])
-        #print(self.final_2d_list)
+                self.final_2d_list[b][a] = self.temp_2d_list[a][b]  #turn maze 90 degrees
         return self.final_2d_list
 
-    def get_tile(self, position, tile_size):
+    def get_tile(self, position, tile_size):    #calculate tile according to position and tile size
         self.tile_size = tile_size
         self.tile = (int((position[0]) / self.tile_size), int((position[1]) / self.tile_size))
         return self.tile
 
     def collision_detection_straight(self, pos, direction, tile_size):
         self.tile_size = tile_size
-        self.pos = [pos[0]+self.tile_size/2, pos[1] + self.tile_size/2]
+        self.pos = [pos[0]+self.tile_size/2, pos[1] + self.tile_size/2] #set position to center of tile
         self.direction = direction
         self.current_tile = self.get_tile(self.pos, self.tile_size)
-        self.next_tile = self.get_tile((self.pos[0]+ self.direction[0]*12.5,self.pos[1]+ self.direction[1]*12.5), self.tile_size)
+        self.next_tile = self.get_tile(((self.pos[0] + self.direction[0]*(.5*tile_size)),
+                                       (self.pos[1] + self.direction[1]*(.5*tile_size))),self.tile_size)
+            #add .5 tilesize to position in order to see if border of the tile is almost hit
         if self.current_tile == self.next_tile:
-
-            return False
+            return False    #return false if border of tile is not reached
         else:
             if self.final_2d_list[self.next_tile[0]][self.next_tile[1]] == '|':
-                return True
+                return True #if border is reached and the next tile is a wall return true
             else:
-                return False
+                return False    # if next tile is not a wall return false
 
     def collision_detection_direction(self, pos, direction, new_direction, tile_size):
         self.tile_size = tile_size
@@ -105,23 +106,24 @@ class Maze:
         print(self.pos, (self.pos[0] % self.tile_size)**2, (self.pos[1] % self.tile_size)**2)
         if (self.new_direction[0] == -self.direction[0] or self.new_direction[1] == -self.direction[1]) and \
                 self.direction != [0, 0]:
+            #if the new direction is the opposite direction there is never a collision
             print("k")
             return False
-        if (self.pos[0] % self.tile_size)**2 > 2 and (self.pos[1] % self.tile_size)**2 > 2 and \
+        if (self.pos[0] % self.tile_size)**2 > 2 and (self.pos[1] % self.tile_size)**2 > 2 or \
                 self.final_2d_list[self.next_tile[0]][self.next_tile[1]] == '|':
+            #if too far from the center of a tile there is always a collision
             print("t")
             return True
         else:
-
-            if self.final_2d_list[self.next_tile[0]][self.next_tile[1]] == '.':# and (self.pos[0] % (self.tile_size)**2 < 2) \
+            if self.final_2d_list[self.next_tile[0]][self.next_tile[1]] == '.': #and (self.pos[0] % (self.tile_size)**2 < 2) \
                      #and ((self.pos[1] % self.tile_size)**2 < 2): #and self.direction != [0, 0]:
-                 return False
+                 return False   # if next tile is open there is no collision
             else:
                 print("j")
                 return True
 
-    def center_detection(self):
-        if self.pos == [self.current_tile[0] * self.tile_size, self.current_tile[1] * self.tile_size]:
+    def center_detection(self, pos):
+        if pos == [self.current_tile[0] * self.tile_size, self.current_tile[1] * self.tile_size]:
             return True
         else:
             return False

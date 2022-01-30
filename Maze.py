@@ -101,7 +101,7 @@ class Maze:
 
     def collision_detection_straight(self, pos, direction, tile_size):
         self.tile_size = tile_size
-        self.pos = [pos[0]+self.tile_size/2, pos[1] + self.tile_size/2] #set position to center of tile
+        self.pos = [pos[0]+self.tile_size/2, pos[1] + self.tile_size/2] #set position to center of object
         self.direction = direction
         self.current_tile = self.get_tile(self.pos, self.tile_size)
         self.next_tile = self.get_tile(((self.pos[0] + self.direction[0]*(.5*tile_size)),

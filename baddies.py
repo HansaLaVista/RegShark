@@ -24,32 +24,50 @@ class Baddies(pygame.sprite.Sprite):
         self.tile_size = tile_size
         self.search_started = False
         self.temp_shark_pos = (99, 99)
+        self.temp_direction = [[]]
         self.tiles_moved = 0
         self.target_distance = target_distance
         self.route = []
 
     def update(self, shark_pos):
-        if self.tiles_moved >= 3 or not self.search_started:
+        if self.maze.manhat_dist(self.maze.get_tile(self.pos, self.tile_size),self.maze.get_tile(shark_pos, self.tile_size)) <= 20:#self.tiles_moved >= 1 or not self.search_started:
+            print("start")
             self.search_started = True
             self.tiles_moved = 0
             self.temp_shark_pos = copy.deepcopy(shark_pos)
             self.route.clear()
             self.route = copy.deepcopy(self.greedy_search(self.temp_shark_pos))
-        if len(self.route) > 3:
-            if self.maze.center_detection(self.pos) and \
-                    self.maze.get_tile(self.pos, self.tile_size) == self.route[self.tiles_moved]:
-                self.tiles_moved += 1
-                tile = self.maze.get_tile(self.pos, self.tile_size)
-                print(self.route[self.tiles_moved])
-                self.direction[0] = self.route[self.tiles_moved][0] - tile[0]
-                self.direction[1] = self.route[self.tiles_moved][1] - tile[1]
+            self.route.pop(0)
+            #print(self.route)
         else:
-            if self.maze.collision_detection_straight(self.pos, self.direction, self.tile_size):
-                tile = self.maze.get_tile(self.pos, self.tile_size)*self.tile_size
-                self.pos = [tile[0]*self.tile_size, tile[1]*self.tile_size]
+            #self.search_started = False
+            #if self.maze.collision_detection_straight(self.pos, self.direction, self.tile_size):
+            tile = self.maze.get_tile(self.pos, self.tile_size)*self.tile_size
+            print("shit")
+            #self.pos = [tile[0]*(self.tile_size+0.01), tile[1]*(self.tile_size+0.01)]
+            if self.maze.collision_detection_straight(self.pos, self.direction, self.tile_size):#self.search_started:
                 self.direction[0] = 0
                 self.direction[1] = 0
+                temp_tile = self.maze.get_tile(self.pos, self.tile_size)
+                self.pos[0] = temp_tile[0]*self.tile_size
+                self.pos[1] = temp_tile[1]*self.tile_size
                 self.search_started = False
+        if self.route: # != [420, 420]: # len(self.route) > 0:
+            print("check")
+            if self.maze.center_detection(self.pos): #and \
+                    #self.maze.get_tile(self.pos, self.tile_size) == self.route[0]:
+                print(self.route)
+                self.tiles_moved += 1
+                tile = self.maze.get_tile(self.pos, self.tile_size)
+                self.direction[0] = self.route[0][0] - tile[0]
+                self.direction[1] = self.route[0][1] - tile[1]
+                self.temp_direction = self.direction
+                print(self.direction)
+                self.route.pop(0)
+            else:
+                self.direction = self.temp_direction
+
+        #print(self.maze.manhat_dist(self.maze.get_tile(self.pos, self.tile_size),self.maze.get_tile(shark_pos, self.tile_size)))
         self.pos[0] += self.direction[0] * self.speed
         self.pos[1] += self.direction[1] * self.speed
 
@@ -80,4 +98,7 @@ class Baddies(pygame.sprite.Sprite):
                     for a in range(len(sorted_options)):
                         queue.insert(0, sorted_options[a][0])
             else:
-                return visited
+                if visited:
+                    return visited
+                else:
+                    return [[420, 420]]

@@ -35,7 +35,7 @@ class Game:
         self.time = pygame.time.get_ticks()
         self.baddies = Baddies(self.screen, self.maze, 6, Constants.Tile_size)
         self.shark = ReggaeShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
-        self.game_view = GameView(self.shark, self.screen, self.font, self.maze_map, Constants.Tile_size, self.maze)
+        self.game_view = GameView(self.shark, self.screen, self.maze_map, Constants.Tile_size, self.maze)
         #self.manager = pygame_gui.UIManager()
 
     def game_loop(self):

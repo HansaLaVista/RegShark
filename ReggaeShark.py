@@ -32,14 +32,17 @@ class ReggaeShark:
                 self.maze.collision_detection_direction(self.pos, self.direction, self.new_direction, self.size + 5): #and self.new_direction == self.direction:
             if (self.direction[0] != -self.new_direction[0] or self.direction[1] != -self.new_direction[1]) \
                     and self.new_direction != self.direction:
-                tile = self.maze.get_tile(self.center, self.tile_size)
-                print(tile)
-                self.pos[0] = tile[0]*self.tile_size
-                self.pos[1] = tile[1]*self.tile_size
+                self.tile = self.maze.get_tile(self.center, self.tile_size)
+                #print(self.tile)
+                self.pos[0] = self.tile[0]*self.tile_size
+                self.pos[1] = self.tile[1]*self.tile_size
             self.direction = self.new_direction
             self.new_direction = [0, 0]
         if self.maze.collision_detection_straight(self.pos, self.direction, self.size+5):
             self.direction = [0, 0]
+            self.tile = self.maze.get_tile(self.center, self.tile_size)
+            self.pos[0] = self.tile[0] * self.tile_size
+            self.pos[1] = self.tile[1] * self.tile_size
 
     def draw(self):
         #pygame.draw.ellipse(self.screen, [100, 100, 100], [[self.pos[0]+2.5, self.pos[1]+2.5], [self.size, self.size]])

@@ -80,6 +80,25 @@ class Maze:
         self.tile = (int((position[0]) / self.tile_size), int((position[1]) / self.tile_size))
         return self.tile
 
+    def manhat_dist(self, current, target):
+        dx = abs(current[0]-target[0])
+        dy = abs(current[1]-target[1])
+        return dx+dy
+
+    def get_neighbours(self, tile):
+        neighbours = []
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        for a in range(len(directions)):
+            next_x = tile[0] + directions[a][0]
+            next_y = tile[1] + directions[a][1]
+            # print(len(self.final_2d_list[next_x]), next_y, len(self.final_2d_list), next_x)
+            if len(self.final_2d_list[next_x])-1 >= next_y and next_y >= 0 and \
+                    len(self.final_2d_list)-1 >= next_x and next_x >= 0:
+                # print("t")
+                if self.final_2d_list[tile[0]+directions[a][0]][tile[1]+directions[a][1]] != '|':
+                    neighbours.append((tile[0]+directions[a][0], tile[1]+directions[a][1]))
+        return neighbours
+
     def collision_detection_straight(self, pos, direction, tile_size):
         self.tile_size = tile_size
         self.pos = [pos[0]+self.tile_size/2, pos[1] + self.tile_size/2] #set position to center of tile

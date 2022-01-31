@@ -47,8 +47,8 @@ class Game:
 
 
     def update_game(self, dt):
-        self.shark.update(dt)
-        self.baddies.update(self.shark.pos)
+        self.shark.update(self.baddies.pos, dt)
+        self.baddies.update(self.shark.pos, dt)
         pass
 
     # def controller_update(self):

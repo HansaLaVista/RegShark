@@ -17,7 +17,7 @@ class Baddies(pygame.sprite.Sprite):
         self.screen = screen
         self.pos = [50, Constants.Window_height-50]
         self.direction = [0, 0]
-        self.speed = 1 / 8
+        self.speed = (1 / 20)
         self.rect = self.sprite.get_rect()
         self.rect.center = (400, 400)
         self.maze = maze
@@ -29,7 +29,7 @@ class Baddies(pygame.sprite.Sprite):
         self.target_distance = target_distance
         self.route = []
 
-    def update(self, shark_pos):
+    def update(self, shark_pos, dt):
         if self.maze.manhat_dist(self.maze.get_tile(self.pos, self.tile_size),self.maze.get_tile(shark_pos, self.tile_size)) <= 20:#self.tiles_moved >= 1 or not self.search_started:
             print("start")
             self.search_started = True
@@ -68,8 +68,8 @@ class Baddies(pygame.sprite.Sprite):
                 self.direction = self.temp_direction
 
         #print(self.maze.manhat_dist(self.maze.get_tile(self.pos, self.tile_size),self.maze.get_tile(shark_pos, self.tile_size)))
-        self.pos[0] += self.direction[0] * self.speed
-        self.pos[1] += self.direction[1] * self.speed
+        self.pos[0] += self.direction[0] * self.speed * dt
+        self.pos[1] += self.direction[1] * self.speed * dt
 
     def draw(self):
         self.screen.blit(self.sprite, (self.pos[0], self.pos[1]))

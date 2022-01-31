@@ -1,6 +1,8 @@
 import sys
 import pygame
 import serial
+#import serial
+
 from ReggaeShark import RastaShark
 from Maze import Maze
 from baddies import Baddies
@@ -21,6 +23,7 @@ class Game:
         self.background = pygame.image.load("Background.jpg")
         self.arduino = serial.Serial('COM3', 9600)
         # pygame.mixer.music.play()
+        pygame.mixer.music.play()
         self.size = (Constants.Window_width, Constants.Window_height)
         self.screen = pygame.display.set_mode(self.size)
         self.maze = Maze()

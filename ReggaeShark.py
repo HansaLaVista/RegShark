@@ -5,7 +5,6 @@ import os
 class RastaShark:
 
     def __init__(self, screen, maze_map, screen_size, tile_size, maze):
-
         self.jonko_caught = False
         game_folder = os.path.dirname(__file__)
         sprite_folder = os.path.join(game_folder, 'sprites')
@@ -52,6 +51,8 @@ class RastaShark:
         self.maze_map = maze_map
         self.size = tile_size - 5
         self.tile_size = tile_size
+        self.cough = pygame.mixer.Sound("Weed_cough.mp3")
+
 
     def update(self, dt, jonko_pos):
         self.pos[0] += self.direction[0] * self.speed * dt
@@ -75,6 +76,7 @@ class RastaShark:
         for x in range(len(jonko_pos)):
             if (jonko_pos[x][0] - self.tile_size <= self.pos[0] <= jonko_pos[x][0] + self.tile_size) and (jonko_pos[x][1] - self.tile_size <= self.pos[1] <= jonko_pos[x][1] + self.tile_size):
                 self.jonko_caught = True
+                pygame.mixer.Sound.play(self.cough)
 
     def draw(self, dt):
         counter = 0

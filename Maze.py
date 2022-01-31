@@ -1,4 +1,5 @@
-"lines 13 - 54 & 59 - 61 were taken from ....."
+"lines 13 - 54 & 59 - 61 were taken from https://shaunlebron.github.io/pacman-mazegen/"
+#Here we adapt the mazegen to serve our own ends, allowing it to work with pygame
 
 from Map import Map
 import sys
@@ -146,5 +147,3 @@ class Maze:
             return True
         else:
             return False
-
-        # and self.pos != [current_tile[0] * tile_size, current_tile[1] * tile_size]:

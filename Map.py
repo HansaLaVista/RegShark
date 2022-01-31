@@ -1,5 +1,5 @@
-"This code was taken from .... we did not write this code"
-
+"This code was taken from https://shaunlebron.github.io/pacman-mazegen/ we did not write this code"
+#This is a heuristsic mazegen for PAC-MAN like mazes
 import random
 
 # takes multi-line map string, trims indentation, replaces newlines with given separator

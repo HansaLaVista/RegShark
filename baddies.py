@@ -1,8 +1,8 @@
+#enemy class
 import pygame
 import os
 import copy
 import random
-import serial
 
 
 class Baddies(pygame.sprite.Sprite):
@@ -56,13 +56,11 @@ class Baddies(pygame.sprite.Sprite):
 
             if self.route:
                 if self.maze.center_detection(self.pos):
-                    print(self.route)
                     self.tiles_moved += 1
                     tile = self.maze.get_tile(self.pos, self.tile_size)
                     self.direction[0] = self.route[0][0] - tile[0]
                     self.direction[1] = self.route[0][1] - tile[1]
                     self.temp_direction = self.direction
-                    print(self.direction)
                     self.route.pop(0)
                 else:
                     self.direction = self.temp_direction

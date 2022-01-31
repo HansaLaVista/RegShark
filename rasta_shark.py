@@ -7,6 +7,8 @@ class RastaShark:
     def __init__(self, screen, maze_map, screen_size, tile_size, maze):
         self.jonko_caught = False
         game_folder = os.path.dirname(__file__)
+        #creating sprite lists for animations
+        #clean sprites
         sprite_folder = os.path.join(game_folder, 'sprites')
         self.sprites = []
         self.sprites.append(pygame.image.load(os.path.join(sprite_folder, 'rs_1.png')))
@@ -21,7 +23,7 @@ class RastaShark:
         self.sprites.append(pygame.image.load(os.path.join(sprite_folder, 'rs_10.png')))
         self.sprites.append(pygame.image.load(os.path.join(sprite_folder, 'rs_11.png')))
         self.sprites.append(pygame.image.load(os.path.join(sprite_folder, 'rs_12.png')))
-
+        #sprites with jonko
         self.jonko_sprites = []
         self.jonko_sprites.append(pygame.image.load(os.path.join(sprite_folder, 'rs_wj_1.png')))
         self.jonko_sprites.append(pygame.image.load(os.path.join(sprite_folder, 'rs_wj_2.png')))

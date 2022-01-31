@@ -62,7 +62,6 @@ class RastaShark:
             if (self.direction[0] != -self.new_direction[0] or self.direction[1] != -self.new_direction[1]) \
                     and self.new_direction != self.direction:
                 self.tile = self.maze.get_tile(self.center, self.tile_size)
-                #print(self.tile)
                 self.pos[0] = self.tile[0]*self.tile_size
                 self.pos[1] = self.tile[1]*self.tile_size
             self.direction = self.new_direction
@@ -77,16 +76,16 @@ class RastaShark:
             if (jonko_pos[x][0] - self.tile_size <= self.pos[0] <= jonko_pos[x][0] + self.tile_size) and (jonko_pos[x][1] - self.tile_size <= self.pos[1] <= jonko_pos[x][1] + self.tile_size):
                 self.jonko_caught = True
 
-    def draw(self):
+    def draw(self, dt):
         counter = 0
         if self.jonko_caught:
             self.image = self.jonko_sprites[int(self.current_sprite)]
-            self.current_sprite += 0.015
+            self.current_sprite += 0.2 * dt
             if self.current_sprite >= len(self.jonko_sprites):
                 self.current_sprite = 0
         else:
             self.image = self.sprites[int(self.current_sprite)]
-            self.current_sprite += 0.015
+            self.current_sprite += 0.2 * dt
             if self.current_sprite >= len(self.sprites):
                 self.current_sprite = 0
 

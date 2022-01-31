@@ -1,6 +1,6 @@
 import sys
 import pygame
-#import serial
+import serial
 
 from ReggaeShark import RastaShark
 from Maze import Maze
@@ -69,9 +69,11 @@ class Game:
     #         self.shark.direction_change([1, 0])
 
     def draw_components(self):
+        current_time = pygame.time.get_ticks()
+        delta_time = current_time - self.time
         self.screen.blit(self.background, (0, 0))
         self.game_view.draw_maze()
-        self.shark.draw()
+        self.shark.draw(delta_time)
         for x in range(len(self.baddies)):
             self.baddies[x].draw()
         pygame.display.flip()

@@ -114,5 +114,5 @@ class Baddies(pygame.sprite.Sprite):
                     return [[420, 420]]
 
     def collision(self, shark_pos):
-        if (self.pos[0] - 25 <= shark_pos[0] <= self.pos[0] + 25) and (self.pos[0] - 25 >= shark_pos[1] >= self.pos[0] + 25):
+        if (self.pos[0] - 25 <= shark_pos[0] <= self.pos[0] + 25) and (self.pos[1] - 25 <= shark_pos[1] <= self.pos[1] + 25):
             self.alive = False

@@ -1,9 +1,7 @@
 # Group 43 Hans Nielen & Dominic Matthews
 # Project: Rasta Shark
-import sys
 import pygame
 import serial
-
 from rasta_shark import RastaShark
 from Maze import Maze
 from baddies import Baddies
@@ -15,6 +13,7 @@ from helpers.keyboardHandler import KeyboardHandler
 class Game:
 
     def __init__(self):
+        #initialise variables
         pygame.init()
         pygame.mixer.init()
         pygame.mixer.music.load("reggae.mp3")
@@ -58,23 +57,32 @@ class Game:
         self.shark.update(dt, jonko_pos)
 
     def controller_update(self):
+        #reading arduino data to determine movement
         arduino_data = self.arduino.read().decode('ascii')
+        #Up
         if arduino_data == 'U':
             self.shark.direction_change([0, -1])
+        #Down
         if arduino_data == 'D':
             self.shark.direction_change([0, 1])
+        #Left
         if arduino_data == 'L':
             self.shark.direction_change([-1, 0])
+        #Right
         if arduino_data == 'R':
             self.shark.direction_change([1, 0])
 
     def draw_components(self):
+        #creating delta time so that everything runs at the same speed across machines
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.time
+        #drawing background
         self.screen.blit(self.background, (0, 0))
 
         self.game_view.draw_maze()
         self.shark.draw(delta_time)
+
+        # Victory message and check
         joints_left = 0
         for x in range(len(self.baddies)):
             self.baddies[x].draw()
@@ -85,6 +93,7 @@ class Game:
                 self.screen.blit(self.win_message[x], (self.size[0] / 3, self.size[1] / 2 + 50 * x))
         pygame.display.flip()
 
+    #Keyboard movement for demostration purposes
     # def handle_events(self):
     #     for event in pygame.event.get():
     #         if event.type == pygame.QUIT:

@@ -37,7 +37,7 @@ class RastaShark:
         self.jonko_sprites.append(pygame.image.load(os.path.join(sprite_folder, 'rs_wj_10.png')))
         self.jonko_sprites.append(pygame.image.load(os.path.join(sprite_folder, 'rs_wj_11.png')))
         self.jonko_sprites.append(pygame.image.load(os.path.join(sprite_folder, 'rs_wj_12.png')))
-
+        #initialising variables
         self.current_sprite = 0
         self.image = self.sprites[0]
         self.rect = self.image.get_rect()
@@ -57,6 +57,7 @@ class RastaShark:
 
 
     def update(self, dt, jonko_pos):
+        #movement controllers
         self.pos[0] += self.direction[0] * self.speed * dt
         self.pos[1] += self.direction[1] * self.speed * dt
         self.center = (self.pos[0]+self.tile_size/2, self.pos[1]+self.tile_size/2)
@@ -74,14 +75,14 @@ class RastaShark:
             self.tile = self.maze.get_tile(self.center, self.tile_size)
             self.pos[0] = self.tile[0] * self.tile_size
             self.pos[1] = self.tile[1] * self.tile_size
-
+        #playing the coughing sound when you grab a jonko
         for x in range(len(jonko_pos)):
             if (jonko_pos[x][0] - self.tile_size <= self.pos[0] <= jonko_pos[x][0] + self.tile_size) and (jonko_pos[x][1] - self.tile_size <= self.pos[1] <= jonko_pos[x][1] + self.tile_size):
                 self.jonko_caught = True
                 pygame.mixer.Sound.play(self.cough)
 
     def draw(self, dt):
-        counter = 0
+        #updating sprites depending on position and if you have caught a jonko
         if self.jonko_caught:
             if self.direction[0] == -1:
                 self.image = pygame.transform.flip(self.jonko_sprites[int(self.current_sprite)], True, False)
@@ -110,9 +111,6 @@ class RastaShark:
 
             if self.current_sprite >= len(self.sprites):
                 self.current_sprite = 0
-
-        # if self.direction[0] == -1:
-        pygame.transform.flip(self.image, True, False)
 
         self.screen.blit(self.image, (self.pos[0]-20, self.pos[1]-17))
 

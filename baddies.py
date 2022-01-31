@@ -30,43 +30,38 @@ class Baddies(pygame.sprite.Sprite):
         self.route = []
 
     def update(self, shark_pos):
-        if self.maze.manhat_dist(self.maze.get_tile(self.pos, self.tile_size),self.maze.get_tile(shark_pos, self.tile_size)) <= 20:#self.tiles_moved >= 1 or not self.search_started:
-            print("start")
+        if self.tiles_moved > 3 or not self.search_started:#self.maze.manhat_dist(self.maze.get_tile(self.pos, self.tile_size),
+                                #self.maze.get_tile(shark_pos, self.tile_size)) <= 20 and (self.tiles_moved > 3 or not self.search_started):
+            print("yes")
             self.search_started = True
             self.tiles_moved = 0
             self.temp_shark_pos = copy.deepcopy(shark_pos)
             self.route.clear()
             self.route = copy.deepcopy(self.greedy_search(self.temp_shark_pos))
-            self.route.pop(0)
-            #print(self.route)
+            #self.route.pop(0)
+            print(self.route)
         else:
-            #self.search_started = False
-            #if self.maze.collision_detection_straight(self.pos, self.direction, self.tile_size):
             tile = self.maze.get_tile(self.pos, self.tile_size)*self.tile_size
-            print("shit")
-            #self.pos = [tile[0]*(self.tile_size+0.01), tile[1]*(self.tile_size+0.01)]
-            if self.maze.collision_detection_straight(self.pos, self.direction, self.tile_size):#self.search_started:
+            if self.maze.collision_detection_straight(self.pos, self.direction, self.tile_size):
+                print("double shit")
                 self.direction[0] = 0
                 self.direction[1] = 0
                 temp_tile = self.maze.get_tile(self.pos, self.tile_size)
                 self.pos[0] = temp_tile[0]*self.tile_size
                 self.pos[1] = temp_tile[1]*self.tile_size
                 self.search_started = False
-        if self.route: # != [420, 420]: # len(self.route) > 0:
-            print("check")
-            if self.maze.center_detection(self.pos): #and \
-                    #self.maze.get_tile(self.pos, self.tile_size) == self.route[0]:
-                print(self.route)
+        if self.route and self.route[0] != [420, 420]:
+            if self.maze.center_detection(self.pos):
                 self.tiles_moved += 1
                 tile = self.maze.get_tile(self.pos, self.tile_size)
                 self.direction[0] = self.route[0][0] - tile[0]
                 self.direction[1] = self.route[0][1] - tile[1]
                 self.temp_direction = self.direction
-                print(self.direction)
+                print(self.direction, "?")
                 self.route.pop(0)
             else:
                 self.direction = self.temp_direction
-
+        else: self.search_started = False
         #print(self.maze.manhat_dist(self.maze.get_tile(self.pos, self.tile_size),self.maze.get_tile(shark_pos, self.tile_size)))
         self.pos[0] += self.direction[0] * self.speed
         self.pos[1] += self.direction[1] * self.speed

@@ -1,17 +1,12 @@
 import sys
-
 import pygame
 import serial
-
 from ReggaeShark import ReggaeShark
 from Maze import Maze
-
+import pyserial
 #import pygame_gui
 from baddies import Baddies
 from game_view import GameView
-#import pyserial
-#from pyduinobridge import Bridge_py
-
 from helpers.Constants import Constants
 from helpers.keyboardHandler import KeyboardHandler
 

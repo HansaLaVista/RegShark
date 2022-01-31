@@ -101,15 +101,16 @@ class Maze:
 
     def collision_detection_straight(self, pos, direction, tile_size):
         self.tile_size = tile_size
-        self.pos = [pos[0]+self.tile_size/2, pos[1] + self.tile_size/2] #set position to center of object
+        self.pos = pos#[pos[0]+self.tile_size/2, pos[1] + self.tile_size/2] #set position to center of object
         self.direction = direction
         self.current_tile = self.get_tile(self.pos, self.tile_size)
         self.next_tile = self.get_tile(((self.pos[0] + self.direction[0]*(.5*tile_size)),
                                        (self.pos[1] + self.direction[1]*(.5*tile_size))),self.tile_size)
             # add .5 tilesize to position in order to see if border of the tile is almost hit
-        if self.current_tile == self.next_tile:
+        if not self.center_detection(self.pos):#self.current_tile == self.next_tile:
             return False    # return false if border of tile is not reached
         else:
+            self.pos = [self.current_tile[0]*self.tile_size, self.current_tile[1]*self.tile_size]
             if self.final_2d_list[self.next_tile[0]][self.next_tile[1]] == '|':
                 return True # if border is reached and the next tile is a wall return true
             else:

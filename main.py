@@ -1,6 +1,6 @@
 import sys
 import pygame
-import serial
+#import serial
 
 from ReggaeShark import RastaShark
 from Maze import Maze

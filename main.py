@@ -29,6 +29,9 @@ class Game:
         self.maze_map = self.maze.generate_matrix()
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
+        self.win_message = []
+        for x in range(len(Constants.Win_message)):
+            self.win_message.append(self.font.render(Constants.Win_message[x], True, (0,100,0)))
         self.time = pygame.time.get_ticks()
         self.number_of_joints = 4
         self.baddies = []
@@ -69,10 +72,17 @@ class Game:
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.time
         self.screen.blit(self.background, (0, 0))
+
         self.game_view.draw_maze()
         self.shark.draw(delta_time)
+        joints_left = 0
         for x in range(len(self.baddies)):
             self.baddies[x].draw()
+            if self.baddies[x].alive:
+                joints_left += 1
+        if joints_left == 0:
+            for x in range(len(self.win_message)):
+                self.screen.blit(self.win_message[x], (self.size[0] / 3, self.size[1] / 2 + 50 * x))
         pygame.display.flip()
 
     # def handle_events(self):

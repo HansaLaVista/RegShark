@@ -20,7 +20,7 @@ class Game:
         pygame.mixer.music.load("reggae.mp3")
         pygame.mouse.set_visible(False)
         self.background = pygame.image.load("Background.jpg")
-        # pygame.mixer.music.play()
+        pygame.mixer.music.play()
         self.size = (Constants.Window_width, Constants.Window_height)
         self.screen = pygame.display.set_mode(self.size)
         self.maze = Maze()

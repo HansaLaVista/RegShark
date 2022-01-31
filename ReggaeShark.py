@@ -18,13 +18,13 @@ class ReggaeShark:
         self.pos = [(self.screen_size[0]/2)-tile_size, self.screen_size[1]-2*tile_size]
         self.direction = [0, 0]
         self.new_direction = [0, 0]
-        self.speed = 1/15
+        self.speed = 10/150
         self.maze = maze
         self.maze_map = maze_map
         self.size = tile_size - 5
         self.tile_size = tile_size
 
-    def update(self, j_pos, dt):
+    def update(self, dt):
         self.pos[0] += self.direction[0] * self.speed * dt
         self.pos[1] += self.direction[1] * self.speed * dt
         self.center = (self.pos[0]+self.tile_size/2, self.pos[1]+self.tile_size/2)

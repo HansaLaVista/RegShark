@@ -18,9 +18,6 @@ class GameView:
         self.map = [""]
         self.map = maze_map
 
-    def draw_game(self):
-        self.draw_maze()
-
     def draw_maze(self):
         for a in range(len(self.map)):
             for b in range(len(self.map[0])):

@@ -1,7 +1,8 @@
 import sys
 import pygame
-import serial
-from ReggaeShark import ReggaeShark
+#import serial
+
+from ReggaeShark import RastaShark
 from Maze import Maze
 from baddies import Baddies
 from game_view import GameView
@@ -33,7 +34,7 @@ class Game:
         for x in range(self.number_of_joints):
             self.baddies.append(Baddies(self.screen, self.maze, Constants.Target_distance[x], Constants.Tile_size,
                                         Constants.J_speed[x]))
-        self.shark = ReggaeShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
+        self.shark = RastaShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
         self.game_view = GameView(self.shark, self.screen, self.maze_map, Constants.Tile_size, self.maze)
         self.arduino = serial.Serial('COM3', 9600)
 
@@ -69,7 +70,7 @@ class Game:
 
     def draw_components(self):
         self.screen.blit(self.background, (0, 0))
-        self.game_view.draw_game()
+        self.game_view.draw_maze()
         self.shark.draw()
         for x in range(len(self.baddies)):
             self.baddies[x].draw()
@@ -91,7 +92,7 @@ class Game:
                 self.handle_mouse_released(event)
 
     def handle_key_down(self, event):
-        self.keyboard_handler.key_pressed(event.key)
+        #self.keyboard_handler.key_pressed(event.key)
         if event.key == pygame.K_w:
             self.shark.direction_change([0, -1])
         if event.key == pygame.K_s:
@@ -102,7 +103,7 @@ class Game:
             self.shark.direction_change([1, 0])
 
     def handle_key_up(self, event):
-        self.keyboard_handler.key_released(event.key)
+        pass# self.keyboard_handler.key_released(event.key)
 
     def handle_mouse_motion(self, event):
         pass

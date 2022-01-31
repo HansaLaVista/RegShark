@@ -8,7 +8,7 @@ class Maze:
     def __init__(self):
         self.next_tile = (-1, -1)
         self.final_2d_list = [[]]
-        self.current_tile = (0,0)
+        self.current_tile = (0, 0)
 
     def generate_matrix(self):
 

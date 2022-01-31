@@ -1,9 +1,8 @@
 import pygame
 import os
-from helpers.Constants import Constants
-from baddies import Baddies
 
-class ReggaeShark:
+
+class RastaShark:
 
     def __init__(self, screen, maze_map, screen_size, tile_size, maze):
 

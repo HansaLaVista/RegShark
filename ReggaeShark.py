@@ -85,7 +85,7 @@ class RastaShark:
                 self.image = self.jonko_sprites[int(self.current_sprite)]
             if self.direction[1] == -1:
                 self.image = pygame.transform.rotate(self.jonko_sprites[int(self.current_sprite)], 90)
-            elif self.direction[1] == 1:
+            if self.direction[1] == 1:
                 self.image = pygame.transform.rotate(self.jonko_sprites[int(self.current_sprite)], 270)
 
             self.current_sprite += 0.2 * dt
@@ -99,7 +99,7 @@ class RastaShark:
                 self.image = self.sprites[int(self.current_sprite)]
             if self.direction[1] == -1:
                 self.image = pygame.transform.rotate(self.sprites[int(self.current_sprite)], 90)
-            elif self.direction[1] == 1:
+            if self.direction[1] == 1:
                 self.image = pygame.transform.rotate(self.sprites[int(self.current_sprite)], 270)
 
             self.current_sprite += 0.2 * dt
@@ -112,8 +112,5 @@ class RastaShark:
 
         self.screen.blit(self.image, (self.pos[0]-20, self.pos[1]-17))
 
-
-
-
     def direction_change(self, new_direction):
-            self.new_direction = new_direction
+        self.new_direction = new_direction

@@ -2,11 +2,12 @@ import pygame
 import os
 import copy
 import random
+import serial
 
 
 class Baddies(pygame.sprite.Sprite):
 
-    def __init__(self, screen, maze, target_distance, tile_size, speed_extra):
+    def __init__(self, screen, maze, target_distance, tile_size, speed_extra, temp_arduino):
         game_folder = os.path.dirname(__file__)
         sprite_folder = os.path.join(game_folder, 'sprites')
         self.sprite = pygame.image.load(os.path.join(sprite_folder, 'small_jonko.png')).convert()
@@ -32,6 +33,7 @@ class Baddies(pygame.sprite.Sprite):
         self.target_distance = target_distance
         self.route = []
         self.alive = True
+        self.arduino = temp_arduino
 
     def update(self, shark_pos, dt):
         if self.alive:
@@ -73,7 +75,6 @@ class Baddies(pygame.sprite.Sprite):
             self.pos = [-20, -20]
 
     def draw(self):
-        if self.alive:
             self.screen.blit(self.sprite, (self.pos[0], self.pos[1]))
 
     def greedy_search(self, shark_pos):

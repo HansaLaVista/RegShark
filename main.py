@@ -1,7 +1,6 @@
 import sys
 import pygame
 import serial
-
 from ReggaeShark import RastaShark
 from Maze import Maze
 from baddies import Baddies
@@ -20,6 +19,7 @@ class Game:
         pygame.mixer.music.load("reggae.mp3")
         pygame.mouse.set_visible(False)
         self.background = pygame.image.load("Background.jpg")
+        self.arduino = serial.Serial('COM3', 9600)
         # pygame.mixer.music.play()
         self.size = (Constants.Window_width, Constants.Window_height)
         self.screen = pygame.display.set_mode(self.size)
@@ -33,10 +33,10 @@ class Game:
         self.baddies = []
         for x in range(self.number_of_joints):
             self.baddies.append(Baddies(self.screen, self.maze, Constants.Target_distance[x], Constants.Tile_size,
-                                        Constants.J_speed[x]))
+                                        Constants.J_speed[x], self.arduino))
         self.shark = RastaShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
         self.game_view = GameView(self.shark, self.screen, self.maze_map, Constants.Tile_size, self.maze)
-        # self.arduino = serial.Serial('COM3', 9600)
+
 
 
     def game_loop(self):
@@ -46,7 +46,8 @@ class Game:
         self.handle_events()
         self.update_game(delta_time)
         self.draw_components()
-        # self.controller_update()
+        self.arduino.write(bytes('1', 'utf-8'))
+        self.controller_update()
 
 
     def update_game(self, dt):
@@ -57,16 +58,16 @@ class Game:
         self.shark.update(dt, jonko_pos)
 
 
-    # def controller_update(self):
-    #     arduino_data = self.arduino.read().decode('ascii')
-    #     if arduino_data == 'U':
-    #         self.shark.direction_change([0, -1])
-    #     if arduino_data == 'D':
-    #         self.shark.direction_change([0, 1])
-    #     if arduino_data == 'L':
-    #         self.shark.direction_change([-1, 0])
-    #     if arduino_data == 'R':
-    #         self.shark.direction_change([1, 0])
+    def controller_update(self):
+        arduino_data = self.arduino.read().decode('ascii')
+        if arduino_data == 'U':
+            self.shark.direction_change([0, -1])
+        if arduino_data == 'D':
+            self.shark.direction_change([0, 1])
+        if arduino_data == 'L':
+            self.shark.direction_change([-1, 0])
+        if arduino_data == 'R':
+            self.shark.direction_change([1, 0])
 
     def draw_components(self):
         current_time = pygame.time.get_ticks()

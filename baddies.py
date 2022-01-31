@@ -1,6 +1,7 @@
 import pygame
 import os
 import copy
+import random
 
 from helpers.Constants import Constants
 
@@ -15,13 +16,17 @@ class Baddies(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.sprite.set_colorkey((0, 0, 0))
         self.screen = screen
-        self.pos = [50, Constants.Window_height-50]
+        self.tile_size = tile_size
         self.direction = [0, 0]
         self.speed = (1 / 20)
         self.rect = self.sprite.get_rect()
         self.rect.center = (400, 400)
         self.maze = maze
-        self.tile_size = tile_size
+        self.start_tile = [0, 0]
+        while self.maze.final_2d_list[self.start_tile[0]][self.start_tile[1]] == '|':
+            self.start_tile[0] = random.randint(1,len(self.maze.final_2d_list)-1)
+            self.start_tile[1] = random.randint(1, len(self.maze.final_2d_list[0]) - 1)
+        self.pos = [self.start_tile[0]*self.tile_size, self.start_tile[1]*self.tile_size]
         self.search_started = False
         self.temp_shark_pos = (99, 99)
         self.temp_direction = [[]]

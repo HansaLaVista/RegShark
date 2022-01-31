@@ -45,7 +45,7 @@ class Game:
         self.handle_events()
         self.update_game(delta_time)
         self.draw_components()
-        # self.controller_update()
+        self.controller_update()
 
 
     def update_game(self, dt):
@@ -53,16 +53,16 @@ class Game:
         self.baddies.update(self.shark.pos, dt)
         pass
 
-    # def controller_update(self):
-    #     arduino_data = self.arduino.read().decode('ascii')
-        # if arduino_data == 'U':
-        #     self.shark.direction_change([0, -1])
-        # if arduino_data == 'D':
-        #     self.shark.direction_change([0, 1])
-        # if arduino_data == 'L':
-        #     self.shark.direction_change([-1, 0])
-        # if arduino_data == 'R':
-        #     self.shark.direction_change([1, 0])
+    def controller_update(self):
+        arduino_data = self.arduino.read().decode('ascii')
+        if arduino_data == 'U':
+            self.shark.direction_change([0, -1])
+        if arduino_data == 'D':
+            self.shark.direction_change([0, 1])
+        if arduino_data == 'L':
+            self.shark.direction_change([-1, 0])
+        if arduino_data == 'R':
+            self.shark.direction_change([1, 0])
 
     def draw_components(self):
         self.screen.blit(self.background, (0, 0))

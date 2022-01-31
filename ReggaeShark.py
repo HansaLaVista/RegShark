@@ -79,17 +79,39 @@ class RastaShark:
     def draw(self, dt):
         counter = 0
         if self.jonko_caught:
-            self.image = self.jonko_sprites[int(self.current_sprite)]
+            if self.direction[0] == -1:
+                self.image = pygame.transform.flip(self.jonko_sprites[int(self.current_sprite)], True, False)
+            else:
+                self.image = self.jonko_sprites[int(self.current_sprite)]
+            if self.direction[1] == -1:
+                self.image = pygame.transform.rotate(self.jonko_sprites[int(self.current_sprite)], 90)
+            elif self.direction[1] == 1:
+                self.image = pygame.transform.rotate(self.jonko_sprites[int(self.current_sprite)], 270)
+
             self.current_sprite += 0.2 * dt
+
             if self.current_sprite >= len(self.jonko_sprites):
                 self.current_sprite = 0
         else:
-            self.image = self.sprites[int(self.current_sprite)]
+            if self.direction[0] == -1:
+                self.image = pygame.transform.flip(self.sprites[int(self.current_sprite)], True, False)
+            else:
+                self.image = self.sprites[int(self.current_sprite)]
+            if self.direction[1] == -1:
+                self.image = pygame.transform.rotate(self.sprites[int(self.current_sprite)], 90)
+            elif self.direction[1] == 1:
+                self.image = pygame.transform.rotate(self.sprites[int(self.current_sprite)], 270)
+
             self.current_sprite += 0.2 * dt
+
             if self.current_sprite >= len(self.sprites):
                 self.current_sprite = 0
 
+        # if self.direction[0] == -1:
+        pygame.transform.flip(self.image, True, False)
+
         self.screen.blit(self.image, (self.pos[0]-20, self.pos[1]-17))
+
 
 
 

@@ -1,12 +1,8 @@
 import sys
 import pygame
-#import serial
 import serial
-
 from ReggaeShark import ReggaeShark
 from Maze import Maze
-#import pyserial
-#import pygame_gui
 from baddies import Baddies
 from game_view import GameView
 from helpers.Constants import Constants
@@ -23,7 +19,7 @@ class Game:
         pygame.mixer.music.load("reggae.mp3")
         pygame.mouse.set_visible(False)
         self.background = pygame.image.load("Background.jpg")
-        pygame.mixer.music.play()
+        # pygame.mixer.music.play()
         self.size = (Constants.Window_width, Constants.Window_height)
         self.screen = pygame.display.set_mode(self.size)
         self.maze = Maze()
@@ -32,7 +28,11 @@ class Game:
         self.keyboard_handler = KeyboardHandler()
         self.font = pygame.font.SysFont(pygame.font.get_fonts()[0], 64)
         self.time = pygame.time.get_ticks()
-        self.baddies = Baddies(self.screen, self.maze, 6, Constants.Tile_size)
+        self.number_of_joints = 4
+        self.baddies = []
+        for x in range(self.number_of_joints):
+            self.baddies.append(Baddies(self.screen, self.maze, Constants.Target_distance[x], Constants.Tile_size,
+                                        Constants.J_speed[x]))
         self.shark = ReggaeShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
         self.game_view = GameView(self.shark, self.screen, self.maze_map, Constants.Tile_size, self.maze)
         self.arduino = serial.Serial('COM3', 9600)
@@ -45,30 +45,34 @@ class Game:
         self.handle_events()
         self.update_game(delta_time)
         self.draw_components()
-        self.controller_update()
+        # self.controller_update()
 
 
     def update_game(self, dt):
-        self.shark.update(self.baddies.pos, dt)
-        self.baddies.update(self.shark.pos, dt)
-        pass
+        jonko_pos = []
+        for x in range(len(self.baddies)):
+            self.baddies[x].update(self.shark.pos, dt)
+            jonko_pos.append(self.baddies[x].pos)
+        self.shark.update(dt, jonko_pos)
 
-    def controller_update(self):
-        arduino_data = self.arduino.read().decode('ascii')
-        if arduino_data == 'U':
-            self.shark.direction_change([0, -1])
-        if arduino_data == 'D':
-            self.shark.direction_change([0, 1])
-        if arduino_data == 'L':
-            self.shark.direction_change([-1, 0])
-        if arduino_data == 'R':
-            self.shark.direction_change([1, 0])
+
+    # def controller_update(self):
+    #     arduino_data = self.arduino.read().decode('ascii')
+    #     if arduino_data == 'U':
+    #         self.shark.direction_change([0, -1])
+    #     if arduino_data == 'D':
+    #         self.shark.direction_change([0, 1])
+    #     if arduino_data == 'L':
+    #         self.shark.direction_change([-1, 0])
+    #     if arduino_data == 'R':
+    #         self.shark.direction_change([1, 0])
 
     def draw_components(self):
         self.screen.blit(self.background, (0, 0))
         self.game_view.draw_game()
         self.shark.draw()
-        self.baddies.draw()
+        for x in range(len(self.baddies)):
+            self.baddies[x].draw()
         pygame.display.flip()
 
     def handle_events(self):

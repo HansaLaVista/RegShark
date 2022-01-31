@@ -8,7 +8,7 @@ from helpers.Constants import Constants
 
 class Baddies(pygame.sprite.Sprite):
 
-    def __init__(self, screen, maze, target_distance, tile_size):
+    def __init__(self, screen, maze, target_distance, tile_size, speed_extra):
         game_folder = os.path.dirname(__file__)
         sprite_folder = os.path.join(game_folder, 'sprites')
         self.sprite = pygame.image.load(os.path.join(sprite_folder, 'small_jonko.png')).convert()
@@ -18,7 +18,7 @@ class Baddies(pygame.sprite.Sprite):
         self.screen = screen
         self.tile_size = tile_size
         self.direction = [0, 0]
-        self.speed = (1 / 20)
+        self.speed = (speed_extra + 10) / 200
         self.rect = self.sprite.get_rect()
         self.rect.center = (400, 400)
         self.maze = maze
@@ -37,7 +37,7 @@ class Baddies(pygame.sprite.Sprite):
 
     def update(self, shark_pos, dt):
         if self.maze.manhat_dist(self.maze.get_tile(self.pos, self.tile_size), self.maze.get_tile(shark_pos,
-                                                                                                  self.tile_size)) <= 20:  # self.tiles_moved >= 1 or not self.search_started:
+                                                                                                  self.tile_size)) <= self.target_distance:  # self.tiles_moved >= 1 or not self.search_started:
             print("start")
             self.search_started = True
             self.tiles_moved = 0
@@ -94,7 +94,7 @@ class Baddies(pygame.sprite.Sprite):
 
         while len(queue) > 0:
             current_node = queue.pop(0)
-            if self.maze.manhat_dist(current_node, target_tile) < 20:
+            if self.maze.manhat_dist(current_node, target_tile) < self.target_distance:
                 if current_node not in visited:
                     visited.append(current_node)
                     neighbours = self.maze.get_neighbours(current_node)
@@ -114,5 +114,5 @@ class Baddies(pygame.sprite.Sprite):
                     return [[420, 420]]
 
     def collision(self, shark_pos):
-        if (self.pos[0] - 25 <= shark_pos[0] <= self.pos[0] + 25) and (self.pos[1] - 25 <= shark_pos[1] <= self.pos[1] + 25):
+        if (self.pos[0] - self.tile_size <= shark_pos[0] <= self.pos[0] + self.tile_size) and (self.pos[1] - self.tile_size <= shark_pos[1] <= self.pos[1] + self.tile_size):
             self.alive = False

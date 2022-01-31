@@ -92,7 +92,7 @@ class Maze:
             next_x = tile[0] + directions[a][0]
             next_y = tile[1] + directions[a][1]
             # print(len(self.final_2d_list[next_x]), next_y, len(self.final_2d_list), next_x)
-            if len(self.final_2d_list[next_x])-1 >= next_y and next_y >= 0 and \
+            if len(self.final_2d_list[0])-1 >= next_y and next_y >= 0 and \
                     len(self.final_2d_list)-1 >= next_x and next_x >= 0:
                 # print("t")
                 if self.final_2d_list[tile[0]+directions[a][0]][tile[1]+directions[a][1]] != '|':

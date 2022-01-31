@@ -36,7 +36,7 @@ class Game:
                                         Constants.J_speed[x]))
         self.shark = RastaShark(self.screen, self.maze_map, self.size, Constants.Tile_size, self.maze)
         self.game_view = GameView(self.shark, self.screen, self.maze_map, Constants.Tile_size, self.maze)
-        self.arduino = serial.Serial('COM3', 9600)
+        # self.arduino = serial.Serial('COM3', 9600)
 
 
     def game_loop(self):
